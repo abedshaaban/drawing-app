@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Card, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -77,6 +78,14 @@ export default function Logic() {
                 </FormItem>
               )}
             />
+
+            <p className="text-sm text-right w-full text-gray-500">
+              Don&apos;t have an account?
+              <Link href={"/register"} className="hover:text-blue-600">
+                {" "}
+                Register here.
+              </Link>
+            </p>
           </div>
 
           <Button type="submit" className="w-full">
