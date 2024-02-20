@@ -38,9 +38,9 @@ export default function Logic() {
   });
 
   async function onSubmit(credentials: z.infer<typeof formSchema>) {
-    const res = await auth().register(credentials);
+    const { status, data, error } = await auth().register(credentials);
 
-    console.log(await res.json());
+    console.log(data);
   }
 
   return (

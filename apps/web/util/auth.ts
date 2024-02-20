@@ -1,5 +1,12 @@
 import type { UserType } from "@/types/user";
 
+type ResponseType = {
+  status: boolean;
+  message: string;
+  data: object | null;
+  error: string | null;
+};
+
 export const auth = () => {
   const END_POINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
@@ -8,8 +15,8 @@ export const auth = () => {
     registerUser: END_POINT + "/auth/register",
   };
 
-  const login = async (data: UserType) => {
-    let outcome;
+  const login = async (data: UserType): Promise<ResponseType> => {
+    let outcome: ResponseType;
 
     try {
       let res = await fetch(BASE_URL.loginUser, {
@@ -20,11 +27,20 @@ export const auth = () => {
         body: JSON.stringify(data),
       });
 
-      outcome = res;
+      outcome = {
+        status: true,
+        message: "User logged successfully!",
+        data: await res.json(),
+        error: null,
+      };
     } catch (error) {
-      console.error("an error occurred during login", error);
-
-      outcome = error;
+      outcome = {
+        status: false,
+        message: "Error occurred while logging user",
+        data: null,
+        error:
+          error && error instanceof Error ? error.message : "Blame someone",
+      };
     }
 
     return outcome;
@@ -42,11 +58,20 @@ export const auth = () => {
         body: JSON.stringify(data),
       });
 
-      outcome = res;
+      outcome = {
+        status: true,
+        message: "User registered successfully!",
+        data: await res.json(),
+        error: null,
+      };
     } catch (error) {
-      console.error("an error occurred during login", error);
-
-      outcome = error;
+      outcome = {
+        status: false,
+        message: "Error occurred while registering user.",
+        data: null,
+        error:
+          error && error instanceof Error ? error.message : "Blame someone",
+      };
     }
 
     return outcome;
