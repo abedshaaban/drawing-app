@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Card, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
+import { auth } from "@/util";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -36,8 +37,10 @@ export default function Logic() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(credentials: z.infer<typeof formSchema>) {
+    const res = await auth().register(credentials);
+
+    console.log(await res.json());
   }
 
   return (
