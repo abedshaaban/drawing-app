@@ -9,4 +9,11 @@ export class AuthController {
 
     return { x: 'we hit those' };
   }
+
+  @Post('login')
+  login(@Body() createCatDto: UserDTO): object {
+    console.log('12', createCatDto);
+
+    return { x: 'we hit those' };
+  }
 }
