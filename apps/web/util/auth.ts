@@ -8,13 +8,41 @@ type ResponseType = {
 };
 
 export const auth = () => {
+  /**
+   * Base url for the backend server
+   */
   const END_POINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
+  /**
+   * Endpoints to call
+   */
   const BASE_URL = {
     loginUser: END_POINT + "/auth/login",
     registerUser: END_POINT + "/auth/register",
   };
 
+  /**
+   * Login user
+   *
+   * @param username  string
+   * @param password  string
+   * @returns
+   * ```
+   * {
+   *   status: boolean
+   *   message: string
+   *   data: object | null
+   *   error: string | null
+   * }
+   * ```
+   *
+   * @example Calling the function to login a user.
+   * ```tsx
+   * import { auth } from "@/util"
+   *
+   * const { status, data, error, message } = await auth().login(credentials)
+   * ```
+   */
   const login = async (data: UserType): Promise<ResponseType> => {
     let outcome: ResponseType;
 
@@ -46,6 +74,28 @@ export const auth = () => {
     return outcome;
   };
 
+  /**
+   * Register user
+   *
+   * @param username  string
+   * @param password  string
+   * @returns
+   * ```
+   * {
+   *   status: boolean
+   *   message: string
+   *   data: object | null
+   *   error: string | null
+   * }
+   * ```
+   *
+   * @example Calling the function to register a user.
+   * ```tsx
+   * import { auth } from "@/util"
+   *
+   * const { status, data, error, message } = await auth().register(credentials)
+   * ```
+   */
   const register = async (data: UserType) => {
     let outcome;
 
